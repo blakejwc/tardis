@@ -1,0 +1,4 @@
+function finddot ()
+{
+  find . -type f -name "*.$1"
+}
