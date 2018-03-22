@@ -1,4 +1,30 @@
-function finddot ()
+# Personal bashrc
+if [ -f ~/.bash_profile ]; then
+  source ~/.bash_profile
+fi
+
+# git completion from Prakash
+source ~/tardis/scripts/git-completion.bash
+
+# Additional work for git-completion
+complete -o default -o nospace -F _git_branch gb
+complete -o default -o nospace -F _git_checkout gc
+
+source ~/tardis/scripts/git-prompt.sh
+source ~/tardis/vecna/.vbashrc
+source ~/tardis/.alias
+
+fdot ()
 {
   find . -type f -name "*.$1"
 }
+
+pg? () {
+  ps -Heo user,pid,ppid,comm --sort comm | grep "$*"
+}
+
+psql_c () {
+  psql -Uroot nexus-robot -c "$*"
+}
+
+source ~/tardis/.PS1

@@ -1,0 +1,6 @@
+# Suggested aliases; uncomment to use them.
+alias ll="ls -lash"
+alias sc='source ~/.bashrc'
+alias chrome='google-chrome &> /dev/null'
+alias s='subl'
+alias psql='psql -Uroot'
