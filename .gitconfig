@@ -1,3 +1,10 @@
+[user]
+	name = blake.chambers
+	email = blake.chambers@vecna.com
+[color]
+	ui = true
+[push]
+	default = simple
 [alias]
         st = status
         pr = !git pull --rebase --autostash && git submodule update --init && git st
