@@ -1,30 +1,35 @@
+# tardis path
+export TARDIS=~/workspace/tardis
+
 # Personal bashrc
 if [ -f ~/.bash_profile ]; then
   source ~/.bash_profile
 fi
 
 # git completion from Prakash
-source ~/tardis/scripts/git-completion.bash
+source $TARDIS/scripts/git-completion.bash
 
 # Additional work for git-completion
 complete -o default -o nospace -F _git_branch gb
 complete -o default -o nospace -F _git_checkout gc
 
-source ~/tardis/scripts/git-prompt.sh
-source ~/tardis/vecna/.vbashrc
-source ~/tardis/.alias
+source $TARDIS/scripts/git-prompt.sh
+source $TARDIS/vecna/.vbashrc
+source $TARDIS/.alias
 
 fdot ()
 {
   find . -type f -name "*.$1"
 }
 
-pg? () {
+pg? ()
+{
   ps -Heo user,pid,ppid,comm --sort comm | grep "$*"
 }
 
-psql_c () {
+psqlc ()
+{
   psql -Uroot nexus-robot -c "$*"
 }
 
-source ~/tardis/.PS1
+source $TARDIS/.PS1

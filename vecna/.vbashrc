@@ -35,6 +35,7 @@ export JRE_HOME=$JDK_HOME/jre
 
 # Nexus Project Path
 export NEXUS_PATH=/other/workspace/nexus
+alias nex='cd $NEXUS_PATH'
 
 # NRV Project variables
 export NRV_PATH=/other/workspace/nrv
@@ -44,6 +45,7 @@ export NRV_RPR_PATH=/other/workspace/nrv/rpr
 export NRV_CORE_PATH=/other/workspace/nrv/core
 export ROS_MASTER_URI=http://localhost:11311
 PATH=$NRV_QCBOT_PATH/scripts:$PATH
+alias nrv='cd $NRV_PATH'
 
 # Maven Repo
 #This should match your ~/.m2/settings.xml <localRepository>
