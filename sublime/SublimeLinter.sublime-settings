@@ -1,0 +1,48 @@
+{
+    "debug": true,
+    "linters":
+    {
+        "jshint":
+        {
+            "@disable": false,
+            "args":
+            [
+                "--config",
+                "/other/dev/vecna-jshintrc/src/main/resources/jshintrc"
+            ],
+            "excludes":
+            [
+            ]
+        },
+        "xmllint":
+        {
+            "@disable": false,
+            "args":
+            [
+                "-schema",
+                "/other/dev/vros/src/original/vlaunch/config/roslaunch.xsd"
+            ],
+            "excludes":
+            [
+            ]
+        },
+        "bashate":
+        {
+            "@disable": false
+        }
+    },
+    "paths":
+    {
+        "linux":
+        [
+            "/usr/bin/",
+            "/other/npm/bin/"
+        ],
+        "osx":
+        [
+        ],
+        "windows":
+        [
+        ]
+    }
+}

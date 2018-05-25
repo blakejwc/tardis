@@ -1,0 +1,50 @@
+{
+	"added_words":
+	[
+		"wiki",
+		"env",
+		"nrv",
+		"org",
+		"dev",
+		"github",
+		"http",
+		"https",
+		"bashrc",
+		"repo",
+		"rebase",
+		"rosjava",
+		"gradle",
+		"java",
+		"src",
+		"roscd",
+		"xml",
+		"sudo",
+		"roscpp",
+		"pom",
+		"vecna",
+		"webapps",
+		"undeploy",
+		"useradmin",
+		"crl",
+		"keytool",
+		"keystore",
+		"repos"
+	],
+	"color_scheme": "Packages/User/SublimeLinter/Monokai (SL).tmTheme",
+	"draw_white_space": "all",
+	"font_size": 10,
+	"ignored_packages":
+	[
+		"Vintage"
+	],
+	"ignored_words":
+	[
+		"devel",
+		"ros",
+		"vros"
+	],
+	"scroll_speed": 0,
+	"tab_size": 4,
+	"translate_tabs_to_spaces": true,
+	"trim_trailing_white_space_on_save": true
+}
