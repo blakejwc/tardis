@@ -14,14 +14,17 @@
 
         lsm = !git config --file .gitmodules --get-regexp path | awk '{ print $2 }' && git st
         lvsm = !git config --file $VROS_PATH/.gitmodules --get-regexp path | awk '{ print $2 }' && git st
-        lbr = branch -vv
+	lbr = branch -vv
+	l1 = log -n1
+	l3 = log -n3
         lgr = log --graph --decorate --
         pgr = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
         dbr = !git branch -D && git lbr
-        wc = whatchanged
+	wc = whatchanged
+	l1 = log -n1
 
         vconf = !vim ~/.gitconfig
-        draft = !$MY_SCRIPTS/git-draft.sh
-        proto = !$MY_SCRIPTS/git-prototype.sh
-        psh = !$MY_SCRIPTS/git-push.sh && git st
-        finda = !$MY_SCRIPTS/git-finda.sh
+        draft = !$TARDIS/scripts/git-draft.sh
+        proto = !$TARDIS/scripts/git-prototype.sh
+        psh = !$TARDIS/scripts/git-push.sh && git st
+        finda = !$TARDIS/scripts/git-finda.sh

@@ -1,7 +1,22 @@
+# Initialize PATH
+export PATH=/bin:/usr/bin
+if [ -f /etc/environment ]; then
+  PATH=$(grep PATH /etc/environment | sed 's/"//g' | awk -F"=" '{print $2}')
+fi
+if [ -d "$HOME/bin" ] ; then
+  PATH=$HOME/bin:$PATH
+fi
+if [ -d "$HOME/.local/bin" ] ; then
+  PATH=$HOME/.local/bin:$PATH
+fi
+
+shopt -s extglob && echo "extglob set (use shopt -u extglob to unset)"
+
 # tardis path
 export TARDIS=~/workspace/tardis
+alias tardis='cd $TARDIS'
 
-# Personal bashrc
+# User bashrc
 if [ -f ~/.bash_profile ]; then
   source ~/.bash_profile
 fi
@@ -13,23 +28,52 @@ source $TARDIS/scripts/git-completion.bash
 complete -o default -o nospace -F _git_branch gb
 complete -o default -o nospace -F _git_checkout gc
 
+# Additional ENVs
 source $TARDIS/scripts/git-prompt.sh
 source $TARDIS/vecna/.vbashrc
 source $TARDIS/.alias
 
+# n for npm env
+N_PREFIX=/other/utils/n_prefix
+N_PATH=$N_PREFIX/bin/n
+NPM_PATH=$N_PREFIX/bin/npm
+NODE_PATH=$N_PREFIX/lib/node_modules:$NODE_PATH
+export NPM_CONFIG_USERCONFIG=$TARDIS/javascript/.npmrc
+
+# MANPATH
+unset MANPATH
+export MANPATH=$N_PREFIX/share/man:$(manpath)
+
+# PATH
+PATH=$N_PREFIX/bin:/snap/bin:$PATH
+# PYTHONPATH
+# + don't add user site-packages location
+# + don't add /usr/lib/**/dist-packages
+# + ROS adds its dist-packages on its own
+
+# Helpful functions
 fdot ()
 {
   find . -type f -name "*.$1"
 }
 
-pg? ()
+ps? ()
 {
   ps -Heo user,pid,ppid,comm --sort comm | grep "$*"
 }
 
 psqlc ()
 {
-  psql -Uroot nexus-robot -c "$*"
+  psql -Uroot $1 -c "${@:2}"
 }
 
+fhelp ()
+{
+  echo -e "\
+    fdot:  find by file extension\n\
+    ps?:   human readable process grep\n\
+    psqlc: execute on given db the given command"
+}
+
+# shell prompt
 source $TARDIS/.PS1

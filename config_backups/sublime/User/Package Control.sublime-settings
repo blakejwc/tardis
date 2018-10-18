@@ -1,0 +1,28 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"AlignTab",
+		"File History",
+		"FileBinder",
+		"FileHeader",
+		"FileManager",
+		"FileModifyStatus",
+		"GitGutter",
+		"LiveReload",
+		"Markdown Extended",
+		"MarkdownEditing",
+		"MarkdownPreview",
+		"Monokai Extended",
+		"Notes",
+		"Package Control",
+		"PackageResourceViewer",
+		"ReadmePlease",
+		"SublimeREPL",
+		"Sublimerge 3",
+		"Table Editor"
+	]
+}

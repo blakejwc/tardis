@@ -1,0 +1,8 @@
+{
+	"extensions":
+	[
+		"notes"
+	],
+	"tab_size": 2,
+    "color_scheme": "Packages/Color Scheme - Default/Monokai.sublime-color-scheme"
+}

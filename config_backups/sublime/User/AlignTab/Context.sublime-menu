@@ -1,0 +1,25 @@
+[
+    {"caption" : "-"},
+    {
+        "id": "aligntab",
+        "caption": "AlignTab",
+        "children": [
+            {
+
+                "caption" : "First Colon :",
+                "command" : "align_tab",
+                "args"    : {"user_input" : ":/r0clf1"}
+            }
+            {
+                "caption": "Long Arrow",
+                "command": "align_tab",
+                "args": {"user_input": ["-+->/f", "=+=>/f"]}
+            },
+            {
+                "caption": "~",
+                "command": "align_tab",
+                "args": {"user_input": "~/f"}
+            }
+      ]
+    } 
+]

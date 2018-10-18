@@ -1,0 +1,33 @@
+#!/bin/bash                                                                      
+
+set -e                                                                           
+
+printf '\npost-checkout hook\n\n'                                                
+
+prevHEAD=$1
+newHEAD=$2                                                  
+
+if [[ $3 == 0 ]]; then echo "it's a file" && exit; fi 
+
+function parse_git_branch() {
+  # This is fast way to tell if we are in repo.
+  # if not, just return 0 - it will skip parsing functions.
+  git rev-parse HEAD >/dev/null 2>&1 || return 0
+  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+  echo "branch "${ref#refs/heads/}""
+}
+
+function parse_git_tag() {
+  lsha=$(git rev-parse HEAD 2> /dev/null) || return
+  tag=$(git describe --tags --exact-match ${lsha} 2> /dev/null) || return
+  echo "tag @${tag}"
+}
+
+
+checked_out=$(parse_git_branch||$parse_git_tag||echo "")
+
+if [[ ! -z "$checked_out" ]]; then
+  curl -H "Content-type: application/json" https://outlook.office.com/webhook/0714f28c-7135-4203-9c5d-4c127787080b@cb2d5b6a-e53c-4015-ab3d-991b74851f79/IncomingWebhook/5884e953c86a4ca0a2caeadcd8fd55f7/8f3798e5-73be-4c36-a3a4-f4f0a9ca73bb -d '{"text": "someone checkout out '"$checked_out"' on '"${ROBOT_PRODUCT/rpr/ak}$ROBOT_SERIAL"'"}'
+fi
+
+echo "Checked-out $checked_out"

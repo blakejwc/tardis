@@ -1,66 +1,95 @@
 # .vbashrc
-# Bashrc template for Robotics Software
+# Bashrc template for Vecna Robotics Software
+#############################################
 
-# Tomcat Home
+# TODO: add dev_tools
+###### Developer Tools #####
+export DEV_TOOLS=/other/dev/DeveloperTools
+
+##### JDK Setup #####
+export JDK_HOME=/opt/jdk
+export JAVA_HOME=$JDK_HOME
+export JRE_HOME=$JDK_HOME/jre
+
+##### Tomcat ENV #####
+### Tomcat Home
 export TOMCAT_HOME=/opt/tomcat
 
-# Catalina Setup
+### Catalina Setup
 export CATALINA_HOME=$TOMCAT_HOME
 export CATALINA_PID=$CATALINA_HOME/pid
 
-# Helpful Tomcat Aliases
+### Helpful Tomcat Aliases
 # tomcat with remote debugging enabled
 alias tomcat="$CATALINA_HOME/bin/catalina.sh jpda"
 # example usage:
-# tomcat start
-# tomcat stop
+#  $ tomcat start
+#  $ tomcat stop
 
 # Check whether tomcat is running
 alias tomcat?="ps -ef | grep tomcat"
 
 # Kill tomcat and remove all webapps
-alias killtom='tomcat stop -force && rm -rf $TOMCAT_HOME/conf/Catalina/localhost'
-# TODO: kill tomcat with undeploy
-alias ktomcat='tomcat stop -force && ~/tardis/scripts/undeploy.sh'
+alias kcat="tomcat stop -force && rm -rf $TOMCAT_HOME/conf/Catalina/localhost"
 
-# this script provides convenient syntax highlighting for maven
-alias mvn="/other/dev/DeveloperTools/colorize/colorize-maven.sh"
-# fallback alias
-alias maven="$MAVEN_HOME/bin/mvn"
+# colorize and tail all tomcat logs
+function tomlogs () {
+  logDir="/opt/tomcat/logs"
+  logFiles=""
+  for var in "$@"
+  do
+    logFiles="${logFiles}${logDir}/${var}*.log "
+  done
+  $DEV_TOOLS/colorize/colortail.sh $logFiles
+}
 
-# JDK Setup
-export JDK_HOME=/opt/jdk
-export JAVA_HOME=$JDK_HOME
-export JRE_HOME=$JDK_HOME/jre
+###### RLS Utils ######
+export RLS_UTILS=/other/utils
 
-# Nexus Project Path
+##### nexus ENV #####
 export NEXUS_PATH=/other/workspace/nexus
-alias nex='cd $NEXUS_PATH'
+alias nex="cd $NEXUS_PATH"
 
-# NRV Project variables
+##### NRV ENV #####
 export NRV_PATH=/other/workspace/nrv
 export NRV_QCBOT_PATH=/other/workspace/nrv/qcbot
 export NRV_6DOF_PATH=/other/workspace/nrv/6dof
 export NRV_RPR_PATH=/other/workspace/nrv/rpr
 export NRV_CORE_PATH=/other/workspace/nrv/core
 export ROS_MASTER_URI=http://localhost:11311
-PATH=$NRV_QCBOT_PATH/scripts:$PATH
-alias nrv='cd $NRV_PATH'
+alias nrv="cd $NRV_PATH"
 
-# Maven Repo
-#This should match your ~/.m2/settings.xml <localRepository>
-export MAVENREPO_PATH=/other/maven/mavenRepository
-
-# VROS bash additions
+##### vros ENV #####
 export VROS_PATH=/other/workspace/vros
 if [ -f $VROS_PATH/devel/setup.bash ]; then
   source $VROS_PATH/devel/setup.bash
 fi
-export ROS_WORKSPACE=$VROS_PATH
-export ROSJAVA_MAVEN_REPO_COPY=$VROS_PATH/rosjava_mvn_repo
+alias vros="cd $VROS_PATH"
+
+##### Maven Repo Configurations for nexus and vros #####
+# This should match your ~/.m2/settings.xml <localRepository>
+export MAVENREPO_PATH=/other/maven/mavenRepository
+
+# This script provides convenient syntax highlighting for maven
+if [ -f $DEV_TOOLS/colorize/colorize-maven.sh ]; then
+  alias mvn="$DEV_TOOLS/colorize/colorize-maven.sh"
+  
+  # fallback alias
+  alias maven="$MAVEN_HOME/bin/mvn"
+fi
+
+# Maven environment for vros
 export ROS_MAVEN_DEPLOYMENT_REPOSITORY=$MAVENREPO_PATH
+export ROSJAVA_MAVEN_REPO_COPY=$VROS_PATH/rosjava_mvn_repo
+export ROS_MAVEN_PATH=$ROS_MAVEN_DEPLOYMENT_REPOSITORY:$ROSJAVA_MAVEN_REPO_COPY
 export ROS_MAVEN_REPOSITORY=http://nexus.crl.vecna.com:8081/nexus/content/repositories/releases
-export ROS_MAVEN_PATH=$ROS_MAVEN_DEPLOYMENT_REPOSITORY:$ROS_MAVEN_PATH:$ROSJAVA_MAVEN_REPO_COPY
+
+# Increase memory allocation for Java and Maven
+export JAVA_OPTS="-server -Xmx2048m -Xms1024m -XX:MaxPermSize=1024m"
+export MAVEN_OPTS="-XX:PermSize=2048M -XX:MaxPermSize=2048M -XX:+CMSClassUnloadingEnabled"
+
+##### ROS ENV #####
+export ROS_WORKSPACE=$VROS_PATH
 export ROS_PACKAGE_PATH=$VROS_PATH/src:/opt/ros/indigo/share:/opt/ros/indigo/stacks
 export ROS_SHARE_PATH=$ROS_WORKSPACE/devel/share:$ROS_PACKAGE_PATH
 export GAZEBO_MODEL_PATH=$VROS_PATH/src/original/vurdf:$VROS_PATH/src/original/vlaunch/config/models
@@ -73,21 +102,6 @@ export C_INCLUDE_PATH=$INCLUDE_PATH:$C_INCLUDE_PATH
 export CPLUS_INCLUDE_PATH=$INCLUDE_PATH:$CPLUS_INCLUDE_PATH
 export ROBOT_SERVICES_HOST=localhost
 
-# Increase memory allocation for Java and Maven
-export JAVA_OPTS="-server -Xmx2048m -Xms1024m -XX:MaxPermSize=1024m"
-export MAVEN_OPTS="-XX:PermSize=2048M -XX:MaxPermSize=2048M -XX:+CMSClassUnloadingEnabled"
+###### PATH #####
+PATH=$NRV_QCBOT_PATH/scripts:$NRV_RPR_PATH/scripts:$PATH
 
-# TODO: add dev_tools
-# Developer Tools
-export DEV_TOOLS=/other/dev/DeveloperTools
-
-# colorize and tail all tomcat logs
-function tomlogs () {
-  logDir="/opt/tomcat/logs"
-  logFiles=""
-  for var in "$@"
-  do
-    logFiles="${logFiles}${logDir}/${var}*.log "
-  done
-  $DEV_TOOLS/colorize/colortail.sh $logFiles
-}

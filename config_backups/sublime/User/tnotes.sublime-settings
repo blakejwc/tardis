@@ -1,0 +1,8 @@
+{
+	"extensions":
+	[
+        "tnotes",
+        "txt"
+	],
+    "color_scheme": "Packages/Color Scheme - Default/Monokai.sublime-color-scheme"
+}

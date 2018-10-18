@@ -1,0 +1,17 @@
+{
+	"added_words":
+	[
+		"Monokai",
+		"http",
+		"https"
+	],
+	"color_scheme": "Packages/Monokai Extended/Monokai Extended Bright.tmTheme",
+	"font_size": 9,
+	"ignored_packages":
+	[
+		"Markdown",
+		"Vintage"
+	],
+	"theme": "Default.sublime-theme",
+	"translate_tabs_to_spaces": true
+}

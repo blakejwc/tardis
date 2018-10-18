@@ -1,0 +1,24 @@
+[global_config]
+  always_on_top = True
+  focus = system
+  sticky = True
+  tab_position = left
+  window_state = hidden
+[keybindings]
+  hide_window = F2
+[layouts]
+  [[default]]
+    [[[child1]]]
+      parent = window0
+      type = Terminal
+    [[[window0]]]
+      parent = ""
+      type = Window
+[plugins]
+[profiles]
+  [[default]]
+    background_darkness = 0.75
+    background_type = transparent
+    copy_on_selection = True
+    cursor_color = "#aaaaaa"
+    scrollback_infinite = True
