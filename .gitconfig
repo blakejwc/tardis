@@ -23,7 +23,7 @@
 	wc = whatchanged
 	l1 = log -n1
 
-        vconf = !vim ~/.gitconfig
+        econf = config --global -e ~/.gitconfig
         draft = !$TARDIS/scripts/git-draft.sh
         proto = !$TARDIS/scripts/git-prototype.sh
         psh = !$TARDIS/scripts/git-push.sh && git st

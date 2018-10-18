@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # .vbashrc
 # Bashrc template for Vecna Robotics Software
 #############################################
@@ -33,7 +35,7 @@ alias tomcat?="ps -ef | grep tomcat"
 alias kcat="tomcat stop -force && rm -rf $TOMCAT_HOME/conf/Catalina/localhost"
 
 # colorize and tail all tomcat logs
-function tomlogs () {
+tomlogs () {
   logDir="/opt/tomcat/logs"
   logFiles=""
   for var in "$@"
@@ -41,6 +43,28 @@ function tomlogs () {
     logFiles="${logFiles}${logDir}/${var}*.log "
   done
   $DEV_TOOLS/colorize/colortail.sh $logFiles
+}
+
+# redeploy webapps for a client (default is woburn)
+# rd [--client CLIENT] WEBAPP [WEBAPP]...
+rd() {
+  local client="woburn"
+  # capture the optional arg and remove it
+  case "$1" in --client=*) client="${1#*=}"; shift;; esac
+  echo "For $client deploy:"
+  local projectList
+  for i in "$@"; do
+    projectList="${projectList}clients/$client/$i,"
+  done
+  # remove the trailing comma
+  projectList=${projectList%?}
+  # echo the list deliminated by spaces
+  echo "${projectList//,/ }"
+  # execute the following commands in the nexus dir
+  pushd $NEXUS_PATH
+  mvn tomcat:undeploy -pl $projectList -fae
+  mvn clean install -pl $projectList -am -Pcheckstyle && mvn tomcat:exploded -pl $projectList
+  popd # go back to the original dir
 }
 
 ###### RLS Utils ######
