@@ -1,0 +1,22 @@
+%YAML 1.2
+---
+# See http://www.sublimetext.com/docs/3/syntax.html
+file_extensions:
+  - pseudo
+scope: source.pseudo
+
+contexts:
+
+  main:
+    - match: ""
+      push: "Packages/Python/Python.sublime-syntax"
+      with_prototype:
+        - match: "#{"
+          push: extra
+
+  extra:
+    - meta_content_scope: constant.other
+    - match: "}"
+      pop: true
+    - match: \b[A-Za-z_][A-Za-z_0-9]*\b
+      scope: constant.other

@@ -1,0 +1,18 @@
+
+class test:
+    pass
+
+for (_, p) in sorted_package_tuples:
+    package_path = os.path.dirname(p.filename)
+    # Generate actionlib_msgs if needed, but only if it's in the ROS_WORKSPACE
+    if (("actionlib_msgs" in [b.name for b in p.build_depends]) and
+        (os.environ['ROS_WORKSPACE'] in package_path)):
+        logging.info("Generating actions for " + p.name)
+        for _, _, files in os.walk(package_path):
+            for file in files:
+                if file.endswith(".action"):
+                    sys.argv=[orig_sysargv[0], package_path + '/action/' + file, '-o', package_path + '/msg']
+                    gen_actionlib_msgs()
+
+
+#{as;fd}
