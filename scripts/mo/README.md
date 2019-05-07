@@ -1,3 +1,7 @@
+This project is a dirty copy of [tests-always-included/mo](https://github.com/tests-always-included/mo) by [fidian](https://github.com/tests-always-included/mo/commits?author=fidian)
+-------------------------------------------------------------------------------------------------------------------
+
+
 Mo - Mustache Templates in Bash
 ===============================
 
