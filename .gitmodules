@@ -1,0 +1,6 @@
+[submodule "scripts/pyliner"]
+	path = scripts/pyliner
+	url = https://github.com/blakejwc/pyliner.git
+[submodule "scripts/mo"]
+	path = scripts/mo
+	url = https://github.com/tests-always-included/mo.git
